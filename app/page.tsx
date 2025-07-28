@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import LandingPage from "@/components/landing/landing-page"
+import WelcomeScreen from "@/components/welcome/welcome-screen"
 import LoginPage from "@/components/auth/login-page"
 import RegisterModal from "@/components/auth/register-modal"
 import Dashboard from "@/components/dashboard/dashboard"
@@ -14,10 +14,9 @@ import ModuleCompletion from "@/components/modules/module-completion"
 import ProgressPage from "@/components/progress/progress-page"
 import UserProfile from "@/components/profile/user-profile"
 import TokenStore from "@/components/store/token-store"
-import LearningPathGenerator from "@/components/learning/learning-path-generator"
 
 export type AppStep =
-  | "landing"
+  | "welcome"
   | "login"
   | "dashboard"
   | "module-detail"
@@ -29,10 +28,9 @@ export type AppStep =
   | "progress"
   | "profile"
   | "store"
-  | "learning-path"
 
 export default function App() {
-  const [currentStep, setCurrentStep] = useState<AppStep>("landing")
+  const [currentStep, setCurrentStep] = useState<AppStep>("welcome")
   const [showRegisterModal, setShowRegisterModal] = useState(false)
   const [selectedModule, setSelectedModule] = useState<any>(null)
   const [user, setUser] = useState<any>(null)
@@ -47,29 +45,17 @@ export default function App() {
     }
   }
 
-  const handleLogout = () => {
-    setUser(null)
-    setSelectedModule(null)
-    setCurrentStep("landing")
-  }
-
   const renderCurrentStep = () => {
     switch (currentStep) {
-      case "landing":
-        return (
-          <LandingPage
-            onLogin={() => navigateToStep("login")}
-            onRegister={() => setShowRegisterModal(true)}
-            onGeneratePath={() => navigateToStep("learning-path")}
-          />
-        )
+      case "welcome":
+        return <WelcomeScreen onLogin={() => navigateToStep("login")} onRegister={() => setShowRegisterModal(true)} />
       case "login":
         return (
           <>
             <LoginPage
               onLogin={(userData) => navigateToStep("dashboard", userData)}
               onShowRegister={() => setShowRegisterModal(true)}
-              onBack={() => navigateToStep("landing")}
+              onBack={() => navigateToStep("welcome")}
             />
             <RegisterModal
               isOpen={showRegisterModal}
@@ -88,7 +74,6 @@ export default function App() {
             onSelectModule={(module) => navigateToStep("module-detail", module)}
             onProfile={() => navigateToStep("profile")}
             onStore={() => navigateToStep("store")}
-            onLogout={handleLogout}
           />
         )
       case "module-detail":
@@ -137,19 +122,19 @@ export default function App() {
             module={selectedModule}
             tokensEarned={tokensEarned}
             onGoToProgress={() => navigateToStep("progress")}
-            onBackToHome={() => navigateToStep("landing")}
           />
         )
       case "progress":
-        return <ProgressPage user={user} onExploreCourses={() => navigateToStep("dashboard")} onLogout={handleLogout} />
+        return (
+          <ProgressPage
+            user={user}
+            onExploreCourses={() => navigateToStep("dashboard")}
+            onLogout={() => navigateToStep("welcome")}
+          />
+        )
       case "profile":
         return (
-          <UserProfile
-            user={user}
-            onBack={() => navigateToStep("dashboard")}
-            onStore={() => navigateToStep("store")}
-            onLogout={handleLogout}
-          />
+          <UserProfile user={user} onBack={() => navigateToStep("dashboard")} onStore={() => navigateToStep("store")} />
         )
       case "store":
         return (
@@ -159,32 +144,10 @@ export default function App() {
             onProfile={() => navigateToStep("profile")}
           />
         )
-      case "learning-path":
-        return (
-          <LearningPathGenerator onBack={() => navigateToStep("landing")} onLogin={() => navigateToStep("login")} />
-        )
       default:
-        return (
-          <LandingPage
-            onLogin={() => navigateToStep("login")}
-            onRegister={() => setShowRegisterModal(true)}
-            onGeneratePath={() => navigateToStep("learning-path")}
-          />
-        )
+        return <WelcomeScreen onLogin={() => navigateToStep("login")} onRegister={() => setShowRegisterModal(true)} />
     }
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {renderCurrentStep()}
-      <RegisterModal
-        isOpen={showRegisterModal}
-        onClose={() => setShowRegisterModal(false)}
-        onRegisterSuccess={() => {
-          setShowRegisterModal(false)
-          navigateToStep("login")
-        }}
-      />
-    </div>
-  )
+  return <div className="min-h-screen bg-gray-50">{renderCurrentStep()}</div>
 }

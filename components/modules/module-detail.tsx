@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Play, Clock, BarChart3, Users, Award, Shield, Globe, User, BookOpen } from "lucide-react"
+import { ArrowLeft, Play, Clock, BarChart3, Users, Award, Shield, Globe } from "lucide-react"
 import Image from "next/image"
 
 interface ModuleDetailProps {
@@ -13,27 +13,6 @@ interface ModuleDetailProps {
 }
 
 export default function ModuleDetail({ module, onStartCourse, onBack }: ModuleDetailProps) {
-  // Related courses suggestions based on category
-  const getRelatedCourses = (currentModule: any) => {
-    const allCourses = [
-      { title: "JavaScript Fundamentals", category: "Frontend", level: "Principiante" },
-      { title: "Advanced CSS & Animations", category: "Frontend", level: "Intermedio" },
-      { title: "Vue.js Complete Guide", category: "Frontend", level: "Intermedio" },
-      { title: "Express.js Masterclass", category: "Backend", level: "Intermedio" },
-      { title: "MongoDB & Mongoose", category: "Backend", level: "Principiante" },
-      { title: "GraphQL APIs", category: "Backend", level: "Avanzado" },
-      { title: "TensorFlow Basics", category: "AI/ML", level: "Intermedio" },
-      { title: "Deep Learning with PyTorch", category: "AI/ML", level: "Avanzado" },
-      { title: "AWS Cloud Practitioner", category: "DevOps", level: "Principiante" },
-    ]
-
-    return allCourses
-      .filter((course) => course.category === currentModule.category && course.title !== currentModule.title)
-      .slice(0, 3)
-  }
-
-  const relatedCourses = getRelatedCourses(module)
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -62,39 +41,8 @@ export default function ModuleDetail({ module, onStartCourse, onBack }: ModuleDe
                 )}
               </div>
               <h1 className="text-3xl md:text-4xl font-bold text-[#001F3D] mb-4">{module.title}</h1>
-              <p className="text-lg text-gray-600 font-medium leading-relaxed mb-4">{module.description}</p>
-
-              {/* Instructor */}
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-[#4CAF50] rounded-full flex items-center justify-center">
-                  <User className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500 font-medium">Instructor</p>
-                  <p className="text-lg font-bold text-[#001F3D]">{module.instructor}</p>
-                </div>
-              </div>
+              <p className="text-lg text-gray-600 font-medium leading-relaxed">{module.description}</p>
             </div>
-
-            {/* Curriculum */}
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-[#001F3D] mb-4 flex items-center gap-2">
-                  <BookOpen className="w-5 h-5" />
-                  Malla Curricular
-                </h3>
-                <div className="space-y-3">
-                  {module.curriculum?.map((item: string, index: number) => (
-                    <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                      <div className="w-6 h-6 bg-[#4CAF50] rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0 mt-0.5">
-                        {index + 1}
-                      </div>
-                      <span className="font-medium text-gray-700">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
 
             {/* Certifications & Accreditations */}
             <Card>
@@ -140,14 +88,14 @@ export default function ModuleDetail({ module, onStartCourse, onBack }: ModuleDe
             {/* Theory Section */}
             <Card>
               <CardContent className="p-8">
-                <h2 className="text-2xl font-bold text-[#001F3D] mb-6">Contenido del Curso</h2>
+                <h2 className="text-2xl font-bold text-[#001F3D] mb-6">Teoría</h2>
 
                 {/* Video Player Placeholder */}
                 <div className="relative bg-gray-900 rounded-lg overflow-hidden mb-6">
                   <div className="aspect-video flex items-center justify-center">
                     <div className="text-center text-white">
                       <Play className="w-16 h-16 mx-auto mb-4 opacity-80" />
-                      <p className="text-lg font-medium">Video Introductorio</p>
+                      <p className="text-lg font-medium">Video Interactivo</p>
                       <p className="text-sm opacity-80">Duración: {module.duration}</p>
                     </div>
                   </div>
@@ -155,23 +103,22 @@ export default function ModuleDetail({ module, onStartCourse, onBack }: ModuleDe
 
                 {/* Theory Content */}
                 <div className="prose max-w-none">
-                  <h3 className="text-xl font-bold text-[#001F3D] mb-4">Lo que aprenderás</h3>
+                  <h3 className="text-xl font-bold text-[#001F3D] mb-4">Conceptos Clave</h3>
                   <div className="space-y-4 text-gray-700 font-medium">
                     <p>
-                      En este curso dominarás {module.title.toLowerCase()}, incluyendo las mejores prácticas de la
-                      industria y técnicas avanzadas utilizadas por profesionales experimentados.
+                      En este módulo aprenderás los fundamentos esenciales de {module.title.toLowerCase()}, incluyendo
+                      las mejores prácticas de la industria y técnicas avanzadas.
                     </p>
                     <ul className="list-disc list-inside space-y-2">
-                      <li>Configuración del entorno de desarrollo profesional</li>
-                      <li>Conceptos fundamentales y arquitectura moderna</li>
-                      <li>Implementación de funcionalidades clave del ecosistema</li>
-                      <li>Optimización de rendimiento y mejores prácticas</li>
-                      <li>Testing, debugging y mantenimiento de código</li>
-                      <li>Deployment y integración continua</li>
+                      <li>Configuración del entorno de desarrollo</li>
+                      <li>Conceptos fundamentales y arquitectura</li>
+                      <li>Implementación de funcionalidades clave</li>
+                      <li>Optimización y mejores prácticas</li>
+                      <li>Testing y debugging</li>
                     </ul>
                     <p>
-                      Al finalizar este curso, tendrás las habilidades necesarias para aplicar estos conocimientos en
-                      proyectos reales y enfrentar desafíos profesionales con confianza.
+                      Al finalizar este módulo, tendrás las habilidades necesarias para aplicar estos conocimientos en
+                      proyectos reales y enfrentar desafíos profesionales.
                     </p>
                   </div>
                 </div>
@@ -217,61 +164,27 @@ export default function ModuleDetail({ module, onStartCourse, onBack }: ModuleDe
             {/* What You'll Learn */}
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-[#001F3D] mb-4">Habilidades que desarrollarás</h3>
+                <h3 className="text-lg font-bold text-[#001F3D] mb-4">Lo que aprenderás</h3>
                 <ul className="space-y-3 text-sm">
                   <li className="flex items-start gap-2">
                     <div className="w-2 h-2 bg-[#4CAF50] rounded-full mt-2 flex-shrink-0" />
-                    <span className="font-medium text-gray-700">Dominio de conceptos fundamentales y avanzados</span>
+                    <span className="font-medium text-gray-700">Fundamentos y conceptos avanzados</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-2 h-2 bg-[#4CAF50] rounded-full mt-2 flex-shrink-0" />
-                    <span className="font-medium text-gray-700">Implementación práctica en proyectos reales</span>
+                    <span className="font-medium text-gray-700">Implementación práctica de proyectos</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-2 h-2 bg-[#4CAF50] rounded-full mt-2 flex-shrink-0" />
-                    <span className="font-medium text-gray-700">Aplicación de mejores prácticas industriales</span>
+                    <span className="font-medium text-gray-700">Mejores prácticas de la industria</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-2 h-2 bg-[#4CAF50] rounded-full mt-2 flex-shrink-0" />
-                    <span className="font-medium text-gray-700">Técnicas de optimización y rendimiento</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-2 h-2 bg-[#4CAF50] rounded-full mt-2 flex-shrink-0" />
-                    <span className="font-medium text-gray-700">Testing y debugging profesional</span>
+                    <span className="font-medium text-gray-700">Técnicas de optimización</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
-
-            {/* Related Courses */}
-            {relatedCourses.length > 0 && (
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-bold text-[#001F3D] mb-4">Cursos relacionados</h3>
-                  <div className="space-y-3">
-                    {relatedCourses.map((course, index) => (
-                      <div
-                        key={index}
-                        className="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
-                      >
-                        <h4 className="font-medium text-[#001F3D] mb-1">{course.title}</h4>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="outline" className="text-xs">
-                            {course.category}
-                          </Badge>
-                          <Badge variant="outline" className="text-xs">
-                            {course.level}
-                          </Badge>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-xs text-gray-500 mt-3 font-medium">
-                    Estos cursos complementan perfectamente tu aprendizaje
-                  </p>
-                </CardContent>
-              </Card>
-            )}
           </div>
         </div>
       </div>

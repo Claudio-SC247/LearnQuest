@@ -4,29 +4,16 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import {
-  ArrowLeft,
-  Trophy,
-  Coins,
-  Target,
-  BookOpen,
-  Clock,
-  TrendingUp,
-  Award,
-  ShoppingCart,
-  Edit,
-  LogOut,
-} from "lucide-react"
+import { ArrowLeft, Trophy, Coins, Target, BookOpen, Clock, TrendingUp, Award, ShoppingCart, Edit } from "lucide-react"
 import Image from "next/image"
 
 interface UserProfileProps {
   user: any
   onBack: () => void
   onStore: () => void
-  onLogout: () => void
 }
 
-export default function UserProfile({ user, onBack, onStore, onLogout }: UserProfileProps) {
+export default function UserProfile({ user, onBack, onStore }: UserProfileProps) {
   const userStats = {
     totalTokens: user?.tokens || 1250,
     coursesCompleted: user?.coursesCompleted || 4,
@@ -71,15 +58,10 @@ export default function UserProfile({ user, onBack, onStore, onLogout }: UserPro
               </Button>
               <div className="text-2xl font-bold text-[#001F3D]">Mi Perfil</div>
             </div>
-            <div className="flex items-center gap-2">
-              <Button variant="outline" onClick={onStore} className="hidden sm:flex bg-transparent">
-                <ShoppingCart className="w-4 h-4 mr-2" />
-                Tienda de Tokens
-              </Button>
-              <Button variant="ghost" size="icon" onClick={onLogout}>
-                <LogOut className="w-4 h-4" />
-              </Button>
-            </div>
+            <Button variant="outline" onClick={onStore} className="hidden sm:flex bg-transparent">
+              <ShoppingCart className="w-4 h-4 mr-2" />
+              Tienda de Tokens
+            </Button>
           </div>
         </div>
       </header>

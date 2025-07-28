@@ -4,21 +4,15 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Trophy, Star, Coins, Award, Sparkles, Gift, Home } from "lucide-react"
+import { Trophy, Star, Coins, Award, Sparkles, Gift } from "lucide-react"
 
 interface ModuleCompletionProps {
   module: any
   tokensEarned: number
   onGoToProgress: () => void
-  onBackToHome: () => void
 }
 
-export default function ModuleCompletion({
-  module,
-  tokensEarned = 150,
-  onGoToProgress,
-  onBackToHome,
-}: ModuleCompletionProps) {
+export default function ModuleCompletion({ module, tokensEarned = 150, onGoToProgress }: ModuleCompletionProps) {
   const [showAnimation, setShowAnimation] = useState(false)
   const [badgeEarned] = useState(true)
 
@@ -131,23 +125,15 @@ export default function ModuleCompletion({
               </div>
             </div>
 
-            {/* Action Buttons */}
+            {/* Action Button */}
             <div
-              className={`flex flex-col sm:flex-row gap-4 justify-center transition-all duration-1000 delay-1000 ${showAnimation ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+              className={`transition-all duration-1000 delay-1000 ${showAnimation ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
             >
               <Button
                 onClick={onGoToProgress}
                 className="bg-[#4CAF50] hover:bg-[#45a049] text-white px-8 py-4 text-lg font-medium transition-all duration-200 hover:scale-105"
               >
                 Ir a Mi Progreso
-              </Button>
-              <Button
-                onClick={onBackToHome}
-                variant="outline"
-                className="border-[#001F3D] text-[#001F3D] hover:bg-[#001F3D] hover:text-white px-8 py-4 text-lg font-medium bg-transparent transition-all duration-200 hover:scale-105"
-              >
-                <Home className="w-5 h-5 mr-2" />
-                Volver al Inicio
               </Button>
             </div>
 

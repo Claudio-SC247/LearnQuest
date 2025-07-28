@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Search, Clock, BarChart3, ShoppingCart, Coins, Sparkles, LogOut, User } from "lucide-react"
+import { Search, Clock, BarChart3, ShoppingCart, Coins, Sparkles } from "lucide-react"
 import Image from "next/image"
 
 interface DashboardProps {
@@ -13,19 +13,17 @@ interface DashboardProps {
   onSelectModule: (module: any) => void
   onProfile: () => void
   onStore: () => void
-  onLogout: () => void
 }
 
-export default function Dashboard({ user, onSelectModule, onProfile, onStore, onLogout }: DashboardProps) {
+export default function Dashboard({ user, onSelectModule, onProfile, onStore }: DashboardProps) {
   const [searchQuery, setSearchQuery] = useState("")
 
   const modules = [
     {
       id: 1,
       title: "React & TypeScript Avanzado",
-      description:
-        "Domina React con TypeScript para crear aplicaciones web modernas y escalables con componentes reutilizables",
-      duration: "4 semanas",
+      description: "Domina React con TypeScript para crear aplicaciones robustas",
+      duration: "4 min",
       practice: "85%",
       image: "/images/courses/react-typescript.png",
       category: "Frontend",
@@ -33,22 +31,12 @@ export default function Dashboard({ user, onSelectModule, onProfile, onStore, on
       price: 0,
       certifications: ["Meta", "Google", "Microsoft"],
       certificate: "React Expert Certification",
-      instructor: "Dr. Carlos Mendoza",
-      curriculum: [
-        "Fundamentos de TypeScript",
-        "Componentes avanzados en React",
-        "State Management con Redux Toolkit",
-        "Testing con Jest y React Testing Library",
-        "Optimización de rendimiento",
-        "Deployment y CI/CD",
-      ],
     },
     {
       id: 2,
       title: "Node.js & APIs REST",
-      description:
-        "Construye APIs robustas y escalables con Node.js, Express y mejores prácticas de arquitectura backend",
-      duration: "5 semanas",
+      description: "Construye APIs escalables con Node.js y Express",
+      duration: "5 min",
       practice: "90%",
       image: "/images/courses/nodejs-api.png",
       category: "Backend",
@@ -56,22 +44,12 @@ export default function Dashboard({ user, onSelectModule, onProfile, onStore, on
       price: 150,
       certifications: ["IBM", "Oracle", "AWS"],
       certificate: "Backend Developer Certification",
-      instructor: "Ing. Ana Rodríguez",
-      curriculum: [
-        "Fundamentos de Node.js y npm",
-        "Creación de APIs REST con Express",
-        "Autenticación y autorización JWT",
-        "Integración con bases de datos",
-        "Manejo de errores y logging",
-        "Testing y documentación de APIs",
-      ],
     },
     {
       id: 3,
       title: "Python Data Science",
-      description:
-        "Análisis de datos y machine learning con Python, pandas, numpy y scikit-learn para insights empresariales",
-      duration: "6 semanas",
+      description: "Análisis de datos y machine learning con Python",
+      duration: "3 min",
       practice: "80%",
       image: "/images/courses/python-data-science.png",
       category: "Data Science",
@@ -79,22 +57,12 @@ export default function Dashboard({ user, onSelectModule, onProfile, onStore, on
       price: 0,
       certifications: ["Google", "IBM", "Coursera"],
       certificate: "Data Science Fundamentals",
-      instructor: "Dr. Miguel Torres",
-      curriculum: [
-        "Introducción a Python para Data Science",
-        "Manipulación de datos con Pandas",
-        "Visualización con Matplotlib y Seaborn",
-        "Estadística descriptiva e inferencial",
-        "Machine Learning con Scikit-learn",
-        "Proyecto final: Análisis predictivo",
-      ],
     },
     {
       id: 4,
       title: "DevOps con Docker",
-      description:
-        "Containerización y despliegue continuo con Docker, Kubernetes y herramientas de automatización modernas",
-      duration: "4 semanas",
+      description: "Containerización y despliegue con Docker",
+      duration: "4 min",
       practice: "75%",
       image: "/images/courses/devops-docker.png",
       category: "DevOps",
@@ -102,22 +70,12 @@ export default function Dashboard({ user, onSelectModule, onProfile, onStore, on
       price: 200,
       certifications: ["Docker", "Kubernetes", "AWS"],
       certificate: "DevOps Professional",
-      instructor: "Ing. Roberto Silva",
-      curriculum: [
-        "Fundamentos de containerización",
-        "Docker: imágenes y contenedores",
-        "Docker Compose para multi-contenedores",
-        "Introducción a Kubernetes",
-        "CI/CD con GitHub Actions",
-        "Monitoreo y logging",
-      ],
     },
     {
       id: 5,
       title: "Inglés Técnico para Desarrolladores",
-      description:
-        "Mejora tu inglés técnico específico para el mundo IT, comunicación profesional y documentación técnica",
-      duration: "6 semanas",
+      description: "Mejora tu inglés técnico para el mundo IT",
+      duration: "6 min",
       practice: "70%",
       image: "/images/courses/technical-english.png",
       category: "Idiomas",
@@ -125,22 +83,12 @@ export default function Dashboard({ user, onSelectModule, onProfile, onStore, on
       price: 100,
       certifications: ["Cambridge", "TOEFL", "IELTS"],
       certificate: "Technical English Proficiency",
-      instructor: "Prof. Sarah Johnson",
-      curriculum: [
-        "Vocabulario técnico esencial",
-        "Comunicación en reuniones técnicas",
-        "Escritura de documentación",
-        "Presentaciones técnicas efectivas",
-        "Code reviews en inglés",
-        "Networking profesional internacional",
-      ],
     },
     {
       id: 6,
       title: "Comunicación Efectiva en Equipos",
-      description:
-        "Desarrolla habilidades de comunicación, liderazgo y trabajo en equipo para liderar proyectos exitosos",
-      duration: "5 semanas",
+      description: "Desarrolla habilidades de comunicación para liderar equipos",
+      duration: "5 min",
       practice: "65%",
       image: "/images/courses/communication-skills.png",
       category: "Soft Skills",
@@ -148,22 +96,12 @@ export default function Dashboard({ user, onSelectModule, onProfile, onStore, on
       price: 80,
       certifications: ["PMI", "Scrum Alliance", "LinkedIn Learning"],
       certificate: "Leadership Communication",
-      instructor: "Dra. Laura Vásquez",
-      curriculum: [
-        "Fundamentos de comunicación efectiva",
-        "Escucha activa y empatía",
-        "Gestión de conflictos",
-        "Liderazgo de equipos remotos",
-        "Feedback constructivo",
-        "Presentaciones persuasivas",
-      ],
     },
     {
       id: 7,
       title: "Machine Learning Básico",
-      description:
-        "Introducción al aprendizaje automático con Python, algoritmos fundamentales y aplicaciones prácticas",
-      duration: "5 semanas",
+      description: "Introducción al aprendizaje automático con Python",
+      duration: "5 min",
       practice: "70%",
       image: "/images/courses/machine-learning.png",
       category: "AI/ML",
@@ -171,22 +109,12 @@ export default function Dashboard({ user, onSelectModule, onProfile, onStore, on
       price: 250,
       certifications: ["Google", "Stanford", "MIT"],
       certificate: "ML Fundamentals",
-      instructor: "Dr. Elena Morales",
-      curriculum: [
-        "Introducción al Machine Learning",
-        "Algoritmos de regresión y clasificación",
-        "Clustering y reducción de dimensionalidad",
-        "Evaluación de modelos",
-        "Redes neuronales básicas",
-        "Proyecto: Sistema de recomendaciones",
-      ],
     },
     {
       id: 8,
       title: "Cybersecurity Fundamentals",
-      description:
-        "Fundamentos de ciberseguridad, protección de sistemas y mejores prácticas para desarrolladores seguros",
-      duration: "3 semanas",
+      description: "Fundamentos de ciberseguridad para desarrolladores",
+      duration: "3 min",
       practice: "85%",
       image: "/images/courses/cybersecurity.png",
       category: "Seguridad",
@@ -194,83 +122,6 @@ export default function Dashboard({ user, onSelectModule, onProfile, onStore, on
       price: 180,
       certifications: ["CompTIA", "CISSP", "CEH"],
       certificate: "Cybersecurity Professional",
-      instructor: "Ing. David Chen",
-      curriculum: [
-        "Principios de seguridad informática",
-        "Criptografía y hashing",
-        "Seguridad en aplicaciones web",
-        "Gestión de vulnerabilidades",
-        "Incident response y forense",
-        "Compliance y marcos regulatorios",
-      ],
-    },
-    {
-      id: 9,
-      title: "Psicología del Aprendizaje",
-      description:
-        "Comprende los procesos cognitivos y emocionales del aprendizaje humano para optimizar tu desarrollo personal",
-      duration: "4 semanas",
-      practice: "70%",
-      image: "/images/courses/psychology-learning.png",
-      category: "Psicología",
-      level: "Principiante",
-      price: 120,
-      certifications: ["APA", "BPS", "Universidad de Harvard"],
-      certificate: "Learning Psychology Specialist",
-      instructor: "Dra. Laura Vásquez",
-      curriculum: [
-        "Teorías del aprendizaje",
-        "Neurociencia cognitiva",
-        "Motivación y engagement",
-        "Memoria y retención",
-        "Metacognición y autorregulación",
-        "Aplicaciones en educación digital",
-      ],
-    },
-    {
-      id: 10,
-      title: "Matemáticas para Programadores",
-      description:
-        "Fundamentos matemáticos esenciales para el desarrollo de software, algoritmos y ciencias de la computación",
-      duration: "8 semanas",
-      practice: "85%",
-      image: "/images/courses/mathematics-programming.png",
-      category: "Matemáticas",
-      level: "Intermedio",
-      price: 200,
-      certifications: ["MIT", "Stanford", "Khan Academy"],
-      certificate: "Mathematical Programming Foundations",
-      instructor: "Dr. Roberto Silva",
-      curriculum: [
-        "Álgebra lineal para programadores",
-        "Cálculo diferencial e integral",
-        "Estadística y probabilidad",
-        "Matemáticas discretas",
-        "Teoría de grafos",
-        "Complejidad algorítmica",
-      ],
-    },
-    {
-      id: 11,
-      title: "Historia de la Tecnología",
-      description: "Evolución de la tecnología desde los primeros ordenadores hasta la inteligencia artificial moderna",
-      duration: "3 semanas",
-      practice: "60%",
-      image: "/images/courses/technology-history.png",
-      category: "Historia",
-      level: "Principiante",
-      price: 60,
-      certifications: ["IEEE", "Computer History Museum", "Smithsonian"],
-      certificate: "Technology History Scholar",
-      instructor: "Prof. Elena Morales",
-      curriculum: [
-        "Pioneros de la computación",
-        "Evolución del hardware",
-        "Historia del software",
-        "Internet y la web",
-        "Revolución móvil",
-        "Futuro de la tecnología",
-      ],
     },
   ]
 
@@ -323,11 +174,6 @@ export default function Dashboard({ user, onSelectModule, onProfile, onStore, on
                 />
                 <span className="font-medium text-gray-700 hidden sm:block">{user?.name}</span>
               </button>
-
-              {/* Logout Button */}
-              <Button variant="ghost" size="icon" onClick={onLogout}>
-                <LogOut className="w-4 h-4" />
-              </Button>
             </div>
           </div>
         </div>
@@ -407,12 +253,6 @@ export default function Dashboard({ user, onSelectModule, onProfile, onStore, on
               <CardContent className="p-6">
                 <h3 className="text-lg md:text-xl font-bold text-[#001F3D] mb-2">{module.title}</h3>
                 <p className="text-gray-600 text-sm mb-4 font-medium line-clamp-2">{module.description}</p>
-
-                {/* Instructor */}
-                <div className="flex items-center gap-2 mb-4 text-sm text-gray-600">
-                  <User className="w-4 h-4" />
-                  <span className="font-medium">{module.instructor}</span>
-                </div>
 
                 {/* Certifications */}
                 <div className="mb-4">
